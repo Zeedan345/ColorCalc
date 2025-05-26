@@ -20,29 +20,32 @@ struct ContentView: View {
 
             VStack {
                 Spacer()
-                
-                Button(action: {
-                    if isRecording {
-                        isCapturing = false
-                        showChart = true
-                    } else {
-                        model.startCapturing()
-                        isCapturing = true
-                        showChart = false
+                if !showChart {
+                    Button(action: {
+                        if isRecording {
+                            model.stopCapturing()
+                            showChart = true
+                        } else {
+                            model.startCapturing()
+                        }
+                        isRecording.toggle()
+                    }) {
+                        Text(isRecording ? "Stop" : "Record")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(isRecording ? Color.gray : Color.red)
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                     }
-                    isRecording.toggle()
-                }) {
-                    Text(isRecording ? "Stop" : "Record")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(isRecording ? Color.gray : Color.red)
-                        .clipShape(Capsule())
+                    .padding(.bottom, 40)
                 }
-                .padding(.bottom, 40)
-            }
-            if showChart {
-                
+                else {
+                    ChartView(data: model.greenValues.map(Double.init)){
+                        isCapturing = false
+                        showChart = false
+                        model.resetGreenValues()
+                    }
+                }
             }
         }
     }

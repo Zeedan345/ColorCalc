@@ -6,13 +6,32 @@
 //
 
 import SwiftUI
+import Charts
 
 struct ChartView: View {
+    let data: [Double]
+    let onClose: () -> Void
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Average Green Intensity Over Time")
+                .font(.headline)
+                .padding()
+            Chart {
+                ForEach(data.indices, id: \.self) { i in
+                    LineMark(x: .value("Frame", i), y: .value("Green", data[i]))}
+            }
+            .frame(height: 300)
+            .padding()
+            
+            Button("Close Chart") {
+                onClose()
+            }
+            .padding()
+        }
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(radius: 10)
+        .padding()
     }
 }
 
-#Preview {
-    ChartView()
-}

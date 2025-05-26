@@ -75,7 +75,7 @@ class FrameHandler: NSObject, ObservableObject {
 extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let cgImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
-        
+        frameCOunt
         let avgGreen = averageGreen(in: cgImage)
         
         // All UI updates should be/ must be performed on the main queue.
