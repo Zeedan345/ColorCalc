@@ -15,7 +15,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            FrameView(image: model.frame)
+            CameraPreview (session: model.captureSession)
                 .ignoresSafeArea()
 
             VStack {

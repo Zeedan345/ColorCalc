@@ -18,7 +18,11 @@ struct ChartView: View {
                 .padding()
             Chart {
                 ForEach(data.indices, id: \.self) { i in
-                    LineMark(x: .value("Frame", i), y: .value("Green", data[i]))}
+                    LineMark(
+                        x: .value("Frame", i),
+                        y: .value("Green", data[i])
+                    )
+                }
             }
             .frame(height: 300)
             .padding()
@@ -28,7 +32,7 @@ struct ChartView: View {
             }
             .padding()
         }
-        .background(Color.white)
+        .background(Color.black)
         .cornerRadius(20)
         .shadow(radius: 10)
         .padding()

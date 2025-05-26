@@ -14,7 +14,7 @@ class FrameHandler: NSObject, ObservableObject {
     
     private var permissionGranted = false
     private var isCapturing = false
-    private let captureSession = AVCaptureSession()
+    var captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "sessionQueue")
     private let context = CIContext()
     
@@ -65,6 +65,8 @@ class FrameHandler: NSObject, ObservableObject {
         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice) else { return }
         guard captureSession.canAddInput(videoDeviceInput) else {return}
         captureSession.addInput(videoDeviceInput)
+        
+        captureSession.sessionPreset = .medium
         
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sampleBufferQueue"))
         captureSession.addOutput(videoOutput)
